@@ -1,6 +1,8 @@
 #!/bin/sh
 set -e
 
+export LFS=/mnt/lfs
+
 su - lfs -s './02-build-temporary-tools.sh'
 
 ./bootstrap-scripts/04-bootstrap-chroot.sh
