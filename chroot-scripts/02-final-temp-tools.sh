@@ -42,9 +42,10 @@ if test -f /usr/bin/perl; then
 else
 	tar -xvf perl-5.36.0.tar.xz
 	cd perl-5.36.0
-	sh Configure -des                                        \
+        sh Configure -des                                \
              -Dprefix=/usr                               \
              -Dvendorprefix=/usr                         \
+             -Duseshrplib                                \
              -Dprivlib=/usr/lib/perl5/5.36/core_perl     \
              -Darchlib=/usr/lib/perl5/5.36/core_perl     \
              -Dsitelib=/usr/lib/perl5/5.36/site_perl     \

@@ -10,8 +10,4 @@ umount $LFS/dev/pts
 umount $LFS/{sys,proc,run,dev}
 rm -rf $LFS/sources/*/
 
-REPO_DIR=$PWD
-cd $LFS
-XZ_OPT='-T0 --memlimit=90%' tar -cJpf NerdOS-lfs-stage2-11.3.tar.xz .
-
-mv NerdOS-lfs-stage2-11.3.tar.xz $REPO_DIR
+XZ_OPT='-T0 --memlimit=90%' tar -cJpf $REPO_DIR/NerdOS-lfs-stage2-11.3.tar.xz $LFS
