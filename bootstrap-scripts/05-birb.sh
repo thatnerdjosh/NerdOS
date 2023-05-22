@@ -39,7 +39,7 @@ else
     BIRB_SOURCE=birb-$BIRB_VERSION
     cd $LFS/sources
     tar -xvf $BIRB_SOURCE.tar.gz
-    cd $BIRB_SOURCE 
+    cd $BIRB_SOURCE
     chmod +x bootstrap.sh
     LFS=$LFS ./bootstrap.sh
     ./birb --download \

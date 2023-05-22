@@ -168,7 +168,7 @@ if test -f $LFS/usr/bin/grep; then
 else
 	tar -xvf grep-3.8.tar.xz
 	cd grep-3.8
-	
+
 	./configure --prefix=/usr   \
 		    --host=$LFS_TGT
 	make
