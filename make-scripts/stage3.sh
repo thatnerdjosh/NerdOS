@@ -1,6 +1,9 @@
 #!/bin/sh
 # NerdOS Stage 3
-export LFS=/mnt/lfs
+
+if [ -z ${LFS+x} ]; then
+  export LFS=/mnt/lfs
+fi
 
 echo "Building Stage3..."
 

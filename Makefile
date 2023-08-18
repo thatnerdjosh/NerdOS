@@ -1,6 +1,6 @@
 OS := NerdOS
 LFS_VERSION := 11.3
-LFS := /mnt/lfs
+LFS ?= /mnt/lfs
 
 all: clean stage1 stage2 # stage3
 
@@ -22,10 +22,10 @@ stage3: stages/$(OS)-lfs-stage3-$(LFS_VERSION).tar.xz
 .PHONY: stage3
 
 stages/$(OS)-lfs-stage1-$(LFS_VERSION).tar.xz:
-	./make-scripts/stage1.sh
+	LFS=$(LFS) ./make-scripts/stage1.sh
 
 stages/$(OS)-lfs-stage2-$(LFS_VERSION).tar.xz:
-	./make-scripts/stage2.sh
+	LFS=$(LFS) ./make-scripts/stage2.sh
 
 stages/$(OS)-lfs-stage3-$(LFS_VERSION).tar.xz:
-	./make-scripts/stage3.sh
+	LFS=$(LFS) ./make-scripts/stage3.sh

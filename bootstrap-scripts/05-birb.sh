@@ -1,12 +1,12 @@
 #!/bin/sh
 set -e
 
-BIRB_VERSION="0.1.6"
+BIRB_VERSION="main"
 STOW_VERSION="2.3.1"
 
 # TODO: Refactor test for file
 if ! test -f $LFS/sources/birb-$BIRB_VERSION.tar.gz; then
-    wget -O $LFS/sources/birb-$BIRB_VERSION.tar.gz https://github.com/Toasterbirb/birb/archive/refs/tags/$BIRB_VERSION.tar.gz
+    wget -O $LFS/sources/birb-$BIRB_VERSION.tar.gz https://github.com/Toasterbirb/birb/archive/refs/heads/$BIRB_VERSION.tar.gz
 fi
 
 if ! test -f $LFS/sources/stow-$STOW_VERSION.tar.gz; then
@@ -38,11 +38,21 @@ if ! test -f $LFS/usr/bin/birb; then
 else
     BIRB_SOURCE=birb-$BIRB_VERSION
     cd $LFS/sources
-    tar -xvf $BIRB_SOURCE.tar.gz
+    # tar -xvf $BIRB_SOURCE.tar.gz
     cd $BIRB_SOURCE
     chmod +x bootstrap.sh
+
+    # Initialize NerdOS-Packages repo
+    mkdir -p ${LFS}/var/db/nerdos-pkg
+    cd ${LFS}/var/db/nerdos-pkg
+    git init
+    git remote add origin https://github.com/thatnerdjosh/NerdOS-packages.git || true
+    git fetch
+    git checkout main
+    cd -
+
     LFS=$LFS ./bootstrap.sh
-    ./birb --download \
+    LFS=$LFS ./birb --download \
         man-pages \
         iana-etc \
         vim \
@@ -135,6 +145,8 @@ else
         e2fsprogs \
         sysklogd \
         sysvinit \
+        freetype \
+        harfbuzz \
         git
 
     chroot "$LFS" /usr/bin/env -i    \

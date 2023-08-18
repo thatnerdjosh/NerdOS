@@ -8,21 +8,19 @@ cd /sources/$BIRB_SOURCE && make && make install
 sed -i 's/abi_x86_32//' /etc/birb.conf
 
 # Add NerdOS package source
-# TODO: Add conditional
 sed -i 's/birb-core;/nerdos;https:\/\/github.com\/thatnerdjosh\/NerdOS-packages;\/var\/db\/nerdos-pkg\nbirb-core;/' /etc/birb-sources.conf
 
 yes 'n' | birb --install --overwrite \
     man-pages \
-    iana-etc
-
-# Break from Birb to compile glibc again (not packaged with Birb)
-
-yes 'n' | birb --install --overwrite \
+    iana-etc \
+    vim \
     zlib \
     bzip2 \
     xz \
     zstd \
     file \
+    pkg-config \
+    ncurses \
     readline \
     m4 \
     bc \
@@ -34,13 +32,12 @@ yes 'n' | birb --install --overwrite \
     gmp \
     mpfr \
     mpc \
+    isl \
     attr \
     acl \
     libcap \
     shadow \
     gcc \
-    pkg-config \
-    ncurses \
     sed \
     psmisc \
     gettext \
@@ -65,25 +62,43 @@ yes 'n' | birb --install --overwrite \
     openssl \
     kmod \
     libelf \
-    libffi \
+    sqlite \
+    libtasn1 \
     python3 \
+    flit-core \
     wheel \
     ninja \
     meson \
+    p11-kit \
+    nspr \
+    nss \
+    make-ca \
+    libffi \
+    wget \
     coreutils \
     check \
     diffutils \
     gawk \
     findutils \
     groff \
+    popt \
+    mandoc \
+    icu \
+    curl \
+    libarchive \
+    libuv \
+    libxml2 \
+    nghttp2 \
+    cmake \
+    graphite2 \
     gzip \
     iproute2 \
+    kbd \
     libpipeline \
     make \
     patch \
     tar \
     texinfo \
-    vim \
     eudev \
     man-db \
     procps-ng \
@@ -91,3 +106,13 @@ yes 'n' | birb --install --overwrite \
     e2fsprogs \
     sysklogd \
     sysvinit
+
+# Python3 needs to be recompiled after sqlite is installed. Otherwise firefox won't compile
+# yes | birb --install python3
+
+# Handle the freetype2 and harfbuzz chicken/egg issue
+yes | birb --install --overwrite freetype harfbuzz
+yes | birb --install --overwrite freetype
+
+## Reinstall graphite2 to add the freetype and harfbuzz functionality into it
+yes | birb --install --overwrite graphite2

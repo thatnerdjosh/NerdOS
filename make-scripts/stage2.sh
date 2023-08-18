@@ -5,6 +5,7 @@ su - lfs -s './02-build-temporary-tools.sh'
 
 ./bootstrap-scripts/04-bootstrap-chroot.sh
 
+# TODO: Move to unmount script
 mountpoint -q $LFS/dev/shm && umount $LFS/dev/shm
 umount $LFS/dev/pts
 umount $LFS/{sys,proc,run,dev}
